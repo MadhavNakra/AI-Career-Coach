@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
             <main className="min-h-screen">{children}</main>
             <footer className="bg-muted/50 py-12">
               <p className="container mx-auto px-4 text-center text-gray-200">
-                Made with ❤️ by Madhav Nakra
+                @Copyright 2026 AI Career Coach. All rights reserved.
               </p>
             </footer>
           </ThemeProvider>
