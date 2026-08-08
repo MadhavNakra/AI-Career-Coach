@@ -66,3 +66,5 @@ export async function getIndustryInsights() {
 
   return user.industryInsight;
 }
+
+//Hello
