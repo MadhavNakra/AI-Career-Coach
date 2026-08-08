@@ -3,7 +3,7 @@
 import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
-// import { generateAIInsights } from "./dashboard";
+import { generateAIInsights } from "./dashboard";
 
 export async function updateUser(data) {
   const { userId } = await auth();
@@ -28,24 +28,27 @@ export async function updateUser(data) {
 
         // If industry doesn't exist, create it with default values
         if (!industryInsight) {
-          // const insights = await generateAIInsights(data.industry);
+          let insights;
+          try {
+            insights = await generateAIInsights(data.industry);
+          } catch (err) {
+            console.error("Failed to generate AI insights, falling back to defaults:", err);
+            insights = {
+              salaryRanges: [],
+              growthRate: 0,
+              demandLevel: "MEDIUM",
+              topSkills: [],
+              marketOutlook: "NEUTRAL",
+              keyTrends: [],
+              recommendedSkills: [],
+            };
+          }
 
-          const defaultInsights = {
-            industry: data.industry,
-            salaryRanges: [],
-            growthRate: 0,
-            demandLevel: "MEDIUM",
-            topSkills: [],
-            marketOutlook: "NEUTRAL",
-            keyTrends: [],
-            recommendedSkills: [],
-            nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-          };
-
-          industryInsight = await tx.industryInsight.create({
+          industryInsight = await db.industryInsight.create({
             data: {
               industry: data.industry,
-              ...defaultInsights,
+              ...insights,
+              nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
             },
           });
         }
