@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,6 +5,18 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+enum DemandLevel {
+  HIGH
+  MEDIUM
+  LOW
+}
+
+enum MarketOutLook {
+  POSITIVE
+  NEUTRAL
+  NEGATIVE
 }
 
 model User {
@@ -87,11 +94,11 @@ model IndustryInsight {
   
   // Industry trends
   growthRate    Float     // Industry growth rate
-  demandLevel   DemandLevel    // "High", "Medium", "Low"
+  demandLevel   DemandLevel
   topSkills     String[]  // Most in-demand skills
   
   // Market conditions
-  marketOutlook MarketOutLook    // "Positive", "Neutral", "Negative"
+  marketOutlook MarketOutLook
   keyTrends     String[]  // Array of current industry trends
   
   // Learning suggestions
@@ -101,16 +108,4 @@ model IndustryInsight {
   nextUpdate    DateTime  // Scheduled update time
 
   @@index([industry])
-}
-
-enum DemandLevel {
-  HIGH
-  MEDIUM
-  LOW
-}
-
-enum MarketOutLook {
-  POSITIVE 
-  NEUTRAL
-  NEGATIVE
 }
