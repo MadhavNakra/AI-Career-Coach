@@ -5,7 +5,7 @@ export const testimonial = [
     author: "Ridhima Nagpaul",
     image: "https://randomuser.me/api/portraits/women/75.jpg",
     role: "PGT English",
-    company: "Tech Giant Co.",
+    company: "Apeejay School",
   },
   {
     quote:
