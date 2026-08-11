@@ -1,36 +1,163 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🚀 Careerly — AI-Powered Career Companion
 
-## Getting Started
+<p align="center">
+  <img src="./public/logo.png" alt="Careerly Logo" width="400"/>
+</p>
 
-First, run the development server:
+<p align="center">
+  <b>Your AI-powered companion for career growth, preparation, and success.</b>
+</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<p align="center">
+  <a href="https://career-coach-kappa-vert.vercel.app/">🌐 Live Demo</a>
+  •
+  <a href="#features">✨ Features</a>
+  •
+  <a href="#tech-stack">🛠️ Tech Stack</a>
+  •
+  <a href="#getting-started">🚀 Getting Started</a>
+</p>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 📌 About Careerly
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Careerly** is an AI-powered career development platform designed to help users understand their career opportunities, improve their professional profile, prepare for interviews, and track their progress — all from a single platform.
 
-## Learn More
+Careerly combines **Generative AI, personalized career insights, assessments, resume building, cover letter generation, and interview preparation** to create a personalized career experience.
 
-To learn more about Next.js, take a look at the following resources:
+🎯 **Goal:** Make career preparation smarter, more personalized, and accessible.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ✨ Features
 
-## Deploy on Vercel
+### 🧠 AI Career & Industry Insights
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Get personalized insights about your selected industry, including:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- 📈 Market outlook
+- 📊 Industry demand
+- 💰 Salary trends
+- 🔥 In-demand skills
+- 🚀 Career opportunities
+- 📚 Recommended skills to develop
+
+---
+
+### 📄 AI Resume Builder
+
+Create and manage a professional resume with an AI-assisted workflow.
+
+- Build a structured resume
+- Generate and improve professional content
+- Highlight relevant skills and experience
+- Preview your resume
+- Export your resume as a PDF
+
+---
+
+### ✉️ AI Cover Letter Generator
+
+Generate personalized cover letters using Generative AI.
+
+Careerly uses your profile and job information to create a tailored cover letter instead of relying on generic templates.
+
+---
+
+### 🎯 AI Interview Preparation
+
+Prepare for interviews through AI-powered assessments.
+
+- Generate interview questions
+- Practice technical and career-related questions
+- Evaluate your performance
+- Identify areas for improvement
+- Track your assessment history
+
+---
+
+### 📊 Performance Tracking
+
+Visualize your assessment performance over time.
+
+Careerly provides:
+
+- Quiz scores
+- Performance trends
+- Assessment history
+- Progress visualization
+
+---
+
+### 🔐 Authentication
+
+Secure user authentication and account management powered by **Clerk**.
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+- **Next.js**
+- **React**
+- **JavaScript**
+- **Tailwind CSS**
+- **shadcn/ui**
+- **Lucide React**
+- **Recharts**
+
+### Backend
+
+- **Next.js Server Actions**
+- **Prisma ORM**
+- **PostgreSQL**
+
+### AI
+
+- **Google Gemini API**
+
+### Authentication
+
+- **Clerk**
+
+### Deployment
+
+- **Vercel**
+
+---
+
+## 🏗️ Architecture
+
+Careerly follows a modern full-stack Next.js architecture.
+
+```text
+                    ┌──────────────────┐
+                    │      User        │
+                    └────────┬─────────┘
+                             │
+                             ▼
+                    ┌──────────────────┐
+                    │   Next.js App    │
+                    │  React + UI      │
+                    └────────┬─────────┘
+                             │
+              ┌──────────────┼──────────────┐
+              │              │              │
+              ▼              ▼              ▼
+       ┌────────────┐ ┌────────────┐ ┌────────────┐
+       │   Clerk    │ │  Gemini AI │ │  Server    │
+       │    Auth    │ │    API     │ │  Actions   │
+       └────────────┘ └────────────┘ └─────┬──────┘
+                                           │
+                                           ▼
+                                    ┌──────────────┐
+                                    │    Prisma    │
+                                    │     ORM      │
+                                    └──────┬───────┘
+                                           │
+                                           ▼
+                                    ┌──────────────┐
+                                    │  PostgreSQL  │
+                                    └──────────────┘
