@@ -47,7 +47,7 @@ export default function CoverLetterGenerator() {
       router.push(`/ai-cover-letter/${generatedLetter.id}`);
       reset();
     }
-  }, [generatedLetter]);
+  }, [generatedLetter, router, reset]);
 
   const onSubmit = async (data) => {
     try {
@@ -63,7 +63,7 @@ export default function CoverLetterGenerator() {
         <CardHeader>
           <CardTitle>Job Details</CardTitle>
           <CardDescription>
-            Provide information about the position you're applying for
+            Provide information about the position you are applying for
           </CardDescription>
         </CardHeader>
         <CardContent>

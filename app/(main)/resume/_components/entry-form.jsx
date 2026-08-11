@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format, parse } from "date-fns";
 import { Button } from "@/components/ui/button";
@@ -35,8 +35,8 @@ export function EntryForm({ type, entries, onChange }) {
     handleSubmit: handleValidation,
     formState: { errors },
     reset,
-    watch,
     setValue,
+    control,
   } = useForm({
     resolver: zodResolver(entrySchema),
     defaultValues: {
@@ -49,7 +49,10 @@ export function EntryForm({ type, entries, onChange }) {
     },
   });
 
-  const current = watch("current");
+  const current = useWatch({
+    control,
+    name: "current",
+  });
 
   const handleAdd = handleValidation((data) => {
     const formattedEntry = {
@@ -88,8 +91,12 @@ export function EntryForm({ type, entries, onChange }) {
   }, [improvedContent, improveError, isImproving, setValue]);
 
   // Replace handleImproveDescription with this
+  const description = useWatch({
+    control,
+    name: "description",
+  });
+
   const handleImproveDescription = async () => {
-    const description = watch("description");
     if (!description) {
       toast.error("Please enter a description first");
       return;
@@ -225,7 +232,7 @@ export function EntryForm({ type, entries, onChange }) {
               variant="ghost"
               size="sm"
               onClick={handleImproveDescription}
-              disabled={isImproving || !watch("description")}
+              disabled={isImproving || !description}
             >
               {isImproving ? (
                 <>

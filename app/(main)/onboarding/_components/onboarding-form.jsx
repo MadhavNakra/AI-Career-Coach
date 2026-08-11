@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
@@ -41,11 +41,11 @@ const OnboardingForm = ({ industries }) => {
   } = useFetch(updateUser);
 
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
     setValue,
-    watch,
   } = useForm({
     resolver: zodResolver(onboardingSchema),
   });
@@ -71,9 +71,12 @@ const OnboardingForm = ({ industries }) => {
       router.push("/dashboard");
       router.refresh();
     }
-  }, [updateResult, updateLoading]);
+  }, [updateResult, updateLoading, router]);
 
-  const watchIndustry = watch("industry");
+  const watchIndustry = useWatch({
+    control,
+    name: "industry",
+  });
 
   return (
     <div className="flex items-center justify-center bg-background">

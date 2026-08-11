@@ -37,11 +37,6 @@ export default function Quiz() {
 
   console.log(resultData);
 
-  useEffect(() => {
-    if (quizData) {
-      setAnswers(new Array(quizData.length).fill(null));
-    }
-  }, [quizData]);
 
   const handleAnswer = (answer) => {
     const newAnswers = [...answers];

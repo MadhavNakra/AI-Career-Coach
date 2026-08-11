@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState, createElement } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useEffect, useMemo, useState, createElement } from "react";
+import { useForm, Controller, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   AlertTriangle,
@@ -32,7 +32,9 @@ import { entriesToMarkdown } from "@/app/lib/helper";
 import { resumeSchema } from "@/app/lib/schema";
 
 export default function ResumeBuilder({ initialContent }) {
-  const [activeTab, setActiveTab] = useState("edit");
+  const [activeTab, setActiveTab] = useState(
+    initialContent ? "preview" : "edit"
+  );
   const [previewContent, setPreviewContent] =
     useState(initialContent || "");
 
@@ -48,7 +50,6 @@ export default function ResumeBuilder({ initialContent }) {
     control,
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(resumeSchema),
@@ -81,33 +82,57 @@ export default function ResumeBuilder({ initialContent }) {
   /*
    * Watch all form values
    */
-  const formValues = watch();
+  const formValues = useWatch({ control });
 
-  /*
-   * If an existing resume exists,
-   * open the preview tab.
-   */
-  useEffect(() => {
-    if (initialContent) {
-      setActiveTab("preview");
-    }
-  }, [initialContent]);
+  const combinedContent = useMemo(() => {
+    const values = formValues || {};
+    const {
+      summary,
+      skills,
+      experience,
+      education,
+      projects,
+      contactInfo = {},
+    } = values;
 
-  /*
-   * Generate markdown whenever
-   * form data changes.
-   */
-  useEffect(() => {
-    if (activeTab !== "edit") {
-      return;
+    const parts = [];
+
+    if (contactInfo.email) {
+      parts.push(`📧 ${contactInfo.email}`);
     }
 
-    const newContent = getCombinedContent();
+    if (contactInfo.mobile) {
+      parts.push(`📱 ${contactInfo.mobile}`);
+    }
 
-    setPreviewContent(
-      newContent || initialContent || ""
-    );
-  }, [formValues, activeTab]);
+    if (contactInfo.linkedin) {
+      parts.push(`💼 [LinkedIn](${contactInfo.linkedin})`);
+    }
+
+    if (contactInfo.twitter) {
+      parts.push(`🐦 [Twitter](${contactInfo.twitter})`);
+    }
+
+    const contactMarkdown = parts.length
+      ? `## <div align="center">${user?.fullName || ""}</div>\n\n<div align="center">\n\n${parts.join(" | \n\n")}\n\n</div>`
+      : "";
+
+    return [
+      contactMarkdown,
+      summary && `## Professional Summary\n\n${summary}`,
+      skills && `## Skills\n\n${skills}`,
+      entriesToMarkdown(experience, "Work Experience"),
+      entriesToMarkdown(education, "Education"),
+      entriesToMarkdown(projects, "Projects"),
+    ]
+      .filter(Boolean)
+      .join("\n\n");
+  }, [formValues, user?.fullName]);
+
+  const previewEditorContent =
+    activeTab === "edit"
+      ? combinedContent || initialContent || ""
+      : previewContent;
 
   /*
    * Handle save result
@@ -437,7 +462,14 @@ ${parts.join(" | ")}
 
       <Tabs
         value={activeTab}
-        onValueChange={setActiveTab}
+        onValueChange={(value) => {
+          setActiveTab(value);
+          if (value === "preview") {
+            setPreviewContent(
+              combinedContent || initialContent || ""
+            );
+          }
+        }}
       >
         <TabsList>
           <TabsTrigger value="edit">
