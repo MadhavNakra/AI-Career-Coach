@@ -1,10 +1,10 @@
 export const testimonial = [
   {
     quote:
-      "The AI-powered interview prep was a game-changer. Landed my dream job at a top tech company!",
-    author: "Sarah Chen",
+      "The AI-powered interview prep was a game-changer for me. I enjoyed the personalized interviews and their scores!",
+    author: "Ridhima Nagpaul",
     image: "https://randomuser.me/api/portraits/women/75.jpg",
-    role: "Software Engineer",
+    role: "PGT English",
     company: "Tech Giant Co.",
   },
   {
