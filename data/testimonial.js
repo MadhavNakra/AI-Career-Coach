@@ -2,7 +2,7 @@ export const testimonial = [
   {
     quote:
       "The AI-powered interview prep was a game-changer for me. I enjoyed the personalized interviews and their scores!",
-    author: "Ridhima Nagpaul",
+    author: "Ridhima",
     image: "https://randomuser.me/api/portraits/women/75.jpg",
     role: "PGT English",
     company: "Apeejay School",
